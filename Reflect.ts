@@ -1151,7 +1151,20 @@ namespace Reflect {
         const hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
         if (hasOwn) return OrdinaryGetOwnMetadata(MetadataKey, O, P);
         const parent = OrdinaryGetPrototypeOf(O);
-        if (!IsNull(parent)) return OrdinaryGetMetadata(MetadataKey, parent, P);
+        if (!IsNull(parent))
+        {
+            
+            let metaDataValue = OrdinaryGetMetadata(MetadataKey, parent, P);
+           if (!IsUndefined(metaDataValue))
+           {
+                if(metaDataValue instanceof Array)
+                {
+                    metaDataValue= JSON.parse(JSON.stringify(metaDataValue));
+                }
+            return metaDataValue;
+           }
+           
+        } 
         return undefined;
     }
 
