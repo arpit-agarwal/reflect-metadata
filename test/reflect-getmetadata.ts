@@ -50,4 +50,19 @@ describe("Reflect.getMetadata", () => {
         let result = Reflect.getMetadata("key", obj, "name");
         assert.equal(result, "value");
     });
+
+    it("MutableKeyValueDefinedOnPrototype", () => {
+        let prototype = {};
+        let obj = Object.create(prototype);
+        Reflect.defineMetadata("key", ["value_proto"], prototype, undefined);
+        let result = Reflect.getMetadata("key", obj, undefined);
+        assert.equal(result[0], "value_proto");
+        result.push("value_self");
+        Reflect.defineMetadata("key", result , obj, undefined);
+        let result_proto = Reflect.getMetadata("key", prototype, undefined);
+        let result_self = Reflect.getMetadata("key", obj, undefined);
+        assert.equal(result_proto.length, 1);
+        assert.equal(result_self.length, 2);
+
+    });
 });
