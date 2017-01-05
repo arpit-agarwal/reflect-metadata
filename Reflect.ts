@@ -1157,7 +1157,7 @@ namespace Reflect {
             let metaDataValue = OrdinaryGetMetadata(MetadataKey, parent, P);
            if (!IsUndefined(metaDataValue))
            {
-                //if(metaDataValue instanceof Array)
+                if(metaDataValue instanceof Array)
                 {
                     metaDataValue= JSON.parse(JSON.stringify(metaDataValue));
                 }
